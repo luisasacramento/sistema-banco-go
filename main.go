@@ -11,7 +11,7 @@ type ContaCorrente struct {
 }
 
 func (c *ContaCorrente) Sacar (valorDoSaque float64) string{
-	podeSacar := valorDoSaque <= c.saldo
+	podeSacar := valorDoSaque > 0 && valorDoSaque <= c.saldo
 	if podeSacar {
 		c.saldo -= valorDoSaque
 		return "Saque realizado com sucesso"
@@ -20,27 +20,39 @@ func (c *ContaCorrente) Sacar (valorDoSaque float64) string{
 	}
 }
 
+func (c*ContaCorrente) Dspositar(valorDoDeposito float64) (string, float64){
+	if valorDoDeposito>0 {
+		c.saldo+= valorDoDeposito
+		return "Deposito realizado com sucesso", c.saldo
+	}else{
+		return "O valor do deposito menor do que 0", c.saldo
+	}
+
+}
+
+func (c*ContaCorrente) Transferir(valorDaTransferencia float64, contaDestino ContaCorrente) bool{
+	if valorDaTransferencia < c.saldo {
+		c.saldo -= valorDaTransferencia
+		contaDestino.Dspositar(valorDaTransferencia)
+		return true
+		
+	}else{
+		return false
+	}
+
+}
+
 func main() {
 
-	contaDoGuilherme := ContaCorrente{titular: "Guilherme", numeroAgencia: 589, numeroConta: 123456, saldo: 125.5}// se fizermos uma comparação de tipo so mudando o nome da variavl = true a não ser que mude algum valor
+	contaDaLuisa := ContaCorrente{titular: "Luisa", saldo: 300}
+	contaDoGuilherme := ContaCorrente{titular: "Guilherme", saldo: 100}
 
-	
-	contaDaLuisa := ContaCorrente{"Bruna", 222, 111222, 200} // o mesmo para esse tipo de declaração 
-	
-	
-	fmt.Println(contaDoGuilherme)
+	status := contaDaLuisa.Transferir(200, contaDoGuilherme)
+
+	fmt.Println(status)
 	fmt.Println(contaDaLuisa)
+	fmt.Println(contaDoGuilherme)
 
-	var contaDaCris *ContaCorrente
-	contaDaCris = new(ContaCorrente)
-	contaDaCris.titular = "Cris"
-	contaDaCris.saldo = 500
-
-	// Aqui se fizer a comparação (contaDaCris == contaDaCris) da false pois ele vai comparar os endereçosonde esta alocada a variavel
-
-	//porém se fizer (*contaDaCris == *contaDaCris) vai dar true pois está comparando o conteúdo
-
-	fmt.Println(*contaDaCris)//conteudo de dentro sem o & (de endereço de memoria)
-	fmt.Println(contaDaCris)//com o & comercial
+	
 
 }
