@@ -1,3 +1,34 @@
+Composição de tipos é suportada em Go.(Certo! Composição de tipos é suportada e encorajada em Go.)
+
+A linguagem Go não possui o conceito de classe(Certo! Em Go, definimos estruturas de dados em forma de structs.)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 contaDoGuilherme := ContaCorrente{titular: "Guilherme", numeroAgencia: 589, numeroConta: 123456, saldo: 125.5}// se fizermos uma comparação de tipo so mudando o nome da variavl = true a não ser que mude algum valor
 
 	
