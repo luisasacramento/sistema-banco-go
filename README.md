@@ -4,3 +4,4 @@
 - Composição de Structs
 - Tipos Aninhados
 - Interface
+- Tipos polimórficos
